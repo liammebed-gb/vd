@@ -1,6 +1,6 @@
 function carCell = parameters_loop_pm(carParams, aeroParams, eParams, DTparams, Bparams, muParams)
     trk = track_pm.loadFromMichiganMat('michigantrack2024.mat');
-    sim = lapsim_pm();
+    sim = tracksolve_pm();
     vmax = 33;
 
     % get torque source once
@@ -40,8 +40,8 @@ function carCell = parameters_loop_pm(carParams, aeroParams, eParams, DTparams, 
 
     N = numel(i_mass);
     carCell = cell(N,1);
-
-    for n = 1:N
+    numWorkers = 16;
+    parfor n = 1:N
         spec = struct();
 
         % car
@@ -89,7 +89,7 @@ function carCell = parameters_loop_pm(carParams, aeroParams, eParams, DTparams, 
         out.v_latlim  = vlim;
 
         carCell{n} = out;
-
+        
         fprintf('combo %d/%d: lap time = %.2f s\n', n, N, lapT);
     end
 end

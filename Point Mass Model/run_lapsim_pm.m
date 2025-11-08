@@ -1,13 +1,15 @@
 clear; clc;
 
 carCell = carConfig_pm(); 
-
+times = zeros(numel(carCell),1);
+for i = 1:numel(carCell)
+    times(i) = carCell{i,1}.lap_time;
+end
 
 fprintf('\n--- factorial results ---\n');
 for i = 1:numel(carCell)
     fprintf('case %d: lap = %.2f s\n', i, carCell{i}.lap_time);
 end
-
 
 figure; hold on; grid on;
 for i = 1:min(5, numel(carCell))
@@ -21,3 +23,14 @@ end
 xlabel('s [m]'); ylabel('v [m/s]');
 title('Speed profiles (first few cases)');
 legend show;
+
+weight = zeros(numel(carCell), 1);
+for i = 1:numel(carCell)
+    weight(i) = carCell{i,1}.carObj.m;
+end
+
+figure;
+scatter(weight, times);
+
+
+

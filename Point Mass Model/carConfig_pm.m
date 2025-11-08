@@ -1,7 +1,7 @@
 function carCell = carConfig_pm()
 %% car parameters
 carParams = struct();
-carParams.mass           = [155 160 168 175 180];
+carParams.mass           = linspace(160, 200, 4);
 carParams.driver_weight  = [64];
 carParams.weight_dist    = [0.512];
 carParams.wheel_radius   = [0.1956];
@@ -39,4 +39,5 @@ muParams.mu_model_exp         = [-0.096];
 % pass to the factorial builder
 carCell = parameters_loop_pm(carParams, aeroParams, eParams, ...
                              DTparams, Bparams, muParams);
+
 end
